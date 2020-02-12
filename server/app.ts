@@ -20,17 +20,17 @@ mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useUnifiedTopology", true);
 mongoose
-  .connect("mongodb://mongodb:27017/pepitas")
+  .connect("mongodb://localhost:27017/pepitas")
   .then(db => {
     console.log("Connected to DB");
     setRoutes(app);
-    app.get("/*", (req, res) => {
-      res.sendFile(path.join(__dirname, "../public/index.html"));
+    app.get("/*", (req: any, res: any) => {
+      res.sendFile(path.join(__dirname, "../pepitas/index.html"));
     });
 
     if (!module.parent) {
       app.listen(app.get("port"), () =>
-        console.log(`Angular Full Stack listening on port ${app.get("port")}`)
+        console.log(`Express listening on port ${app.get("port")}`)
       );
     }
   })

@@ -4,7 +4,9 @@ services:
     build: .
     image: "pepitas"
     container_name: "pepitas"
-    command: npm run start
+    volumes: 
+        - ./pepitas:/usr/src/app
+        - /usr/src/app/node_modules
     ports:
       - "3000:3000"
     links:
