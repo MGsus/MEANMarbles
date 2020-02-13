@@ -31,10 +31,18 @@ export default class poolCtrl extends baseCtrl {
     });
   };
 
-  showPool = async function(req: any, res: any) {
-    let { Date: date, code: code } = req.body;
-    let rslt = await this.model.findOne({ code: code });
-    res.status(200).json(rslt);
+  showPool = async (req: any, res: any) => {
+    let { date: date, code: code } = req.body;
+    try {
+      let qry: any = {};
+      if (date) qry.date = date;
+      else qry.code = code;
+
+      let rslt = await this.model.findOne(qry);
+      res.status(200).json(rslt.results);
+    } catch (_err) {
+      res.status(403).json(_err);
+    }
   };
 
   updatePool = async (code: any, _greenM: any, _redM: any, user: any) => {
