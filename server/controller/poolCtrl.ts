@@ -6,10 +6,8 @@ export default class poolCtrl extends baseCtrl {
   model = pool;
 
   newPool = function(req: any, res: any) {
-    let {
-      TotalMarbles: _totalMarbles,
-      AvailableMarbles: _avlblMarbles
-    } = req.body;
+    let { totalPeople: _totalPpl, marbles: _marbles } = req.body;
+
     bcrypt.genSalt(5, function(err: any, salt: any) {
       if (err) res.json(err);
       bcrypt.hash(Date(), salt, function(err: any, hash: any) {
@@ -18,18 +16,43 @@ export default class poolCtrl extends baseCtrl {
           const nwPool = new pool();
           nwPool.code = hash.substring(7, 12);
           nwPool.date = Date();
-          nwPool.totalMarbles = _totalMarbles;
-          nwPool.availableMarbles = _avlblMarbles;
+          nwPool.totalPeople = _totalPpl;
+          nwPool.marbles = _marbles;
           nwPool
             .save()
             .then(function() {
               res.json("pool created!");
             })
-            .catch(err => {
+            .catch((err: any) => {
               console.error(err);
             });
         }
       });
     });
+  };
+
+  showPool = async function(req: any, res: any) {
+    let { Date: date, code: code } = req.body;
+    let rslt = await this.model.findOne({ code: code });
+    res.status(200).json(rslt);
+  };
+
+  updatePool = async (code: any, _greenM: any, _redM: any, user: any) => {
+    let response: Object;
+    try {
+      let rslt = await this.model.findOne({ code: code });
+      if (!rslt) response = { message: "La sesion no existe" };
+      rslt.results.push({
+        user: user,
+        redMarbles: rslt.marbles - _redM,
+        greenMarbles: rslt.marbles - _greenM
+      });
+      let _res = await rslt.save();
+      if (!_res) response = { message: "no hay resultados" };
+      response = _res;
+    } catch (_err) {
+      if (_err) return { error: _err };
+    }
+    return response;
   };
 }

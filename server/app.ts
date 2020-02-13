@@ -21,8 +21,8 @@ mongoose.set("useFindAndModify", false);
 mongoose.set("useUnifiedTopology", true);
 mongoose
   .connect("mongodb://localhost:27017/pepitas")
-  .then(db => {
-    console.log("Connected to DB");
+  .then((db: any) => {
+    console.log(`Connected to DB ${typeof db}`);
     setRoutes(app);
     app.get("/*", (req: any, res: any) => {
       res.sendFile(path.join(__dirname, "../pepitas/index.html"));
