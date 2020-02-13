@@ -6,14 +6,13 @@ export default class userCtrl extends baseCtrl {
   model = user;
 
   login = function(req: any, res: any) {
-    this.model.findOne(
-      { nickname: req.body.nickname },
-      (_err: any, rslt: any) => {
-        if (!rslt) return res.sendStatus(403);
-        if (_err) return console.error(_err);
-        res.status(200).json({ message: "OK" });
-      }
-    );
+    let { nickname: _nickname, code: _code } = req.body;
+    try {
+      let out = this.model.findOne({ nickname: _nickname, code: _code });
+      res.status(200).json(out.nickname);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   vote = async function(req: any, res: any) {

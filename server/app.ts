@@ -4,12 +4,14 @@ import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as mongoose from "mongoose";
 import setRoutes from "./routes/router";
+import * as morgan from "morgan";
 
 let app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+app.use(morgan("dev"));
 app.use("/", express.static(path.join(__dirname, "../public")));
 
 app.set("port", process.env.PORT || 3000);

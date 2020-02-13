@@ -12,10 +12,12 @@ export default function setRoutes(app: any) {
 
   router.route("/user/login").post(userCtrl.login);
   router.route("/user/vote").post(userCtrl.vote);
+
   router.route("/admin/login").post(adminCtrl.login);
+  router.route("/admin/newPool").post(poolCtrl.newPool);
+  router.route("/admin/showPool").post(poolCtrl.showPool);
 
   router.route("/pool").get(poolCtrl.getAll);
-  router.route("/newPool").post(poolCtrl.newPool);
-  router.route("/showPool").post(poolCtrl.showPool);
+
   app.use("/", router);
 }

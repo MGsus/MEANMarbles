@@ -6,7 +6,7 @@
     "start": "node dist/server/app.js",
     "build": "ng build --prod",
     "predev": "tsc -p server",
-    "dev": "concurrently \"ng serve --proxy-config proxy.conf.json --open\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
+    "dev": "concurrently \"ng serve --proxy-config proxy.conf.json --watch\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -27,6 +27,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "mongoose": "^5.8.11",
+    "morgan": "^1.9.1",
     "path": "^0.12.7",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
