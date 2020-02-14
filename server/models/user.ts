@@ -1,9 +1,8 @@
 import * as mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  nickname: String
+  nickname: { type: String, unique: true }
 });
 
-const user = mongoose.model('User', userSchema);
-
+const user = mongoose.model("user", userSchema);
 export default user;

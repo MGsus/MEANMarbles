@@ -5,13 +5,16 @@ import poolCtrl from "./poolCtrl";
 export default class userCtrl extends baseCtrl {
   model = user;
 
-  login = function(req: any, res: any) {
-    let { nickname: _nickname, code: _code } = req.body;
+  login = async function(req: any, res: any) {
     try {
-      let out = this.model.findOne({ nickname: _nickname, code: _code });
-      res.status(200).json(out.nickname);
+      const nwUser = new user();
+      nwUser.nickname = req.body.nickname;
+      await nwUser.save().then((rslt: any) => {
+        res.status(200).json({ nickname: rslt.nickname });
+      });
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      res.status(500).json(error.errmsg);
     }
   };
 

@@ -39,6 +39,7 @@ export default class poolCtrl extends baseCtrl {
       else qry.code = code;
 
       let rslt = await this.model.findOne(qry);
+      // Returna solo los resultados
       res.status(200).json(rslt.results);
     } catch (_err) {
       res.status(403).json(_err);
