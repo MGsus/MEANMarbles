@@ -20,5 +20,5 @@ export default function setRoutes(app: any) {
   router.route("/pool").get(poolCtrl.getAll);
   router.route("/users").get(userCtrl.getAll);
 
-  app.use("/", router);
+  app.use("/api", router);
 }

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
-import { IPool } from "./pool.interface";
+import { IPool } from "../../shared/interfaces/pool.interface";
 
 @Injectable()
 export class AdminService {

@@ -1,1 +1,22 @@
-<p>login works!</p>
+<div>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div>
+      <input
+        type="text"
+        name="nickname"
+        placeholder="Nickname"
+        formControlName="nickname"
+        autofocus
+      />
+    </div>
+    <div>
+      <input
+        type="text"
+        name="code"
+        placeholder="Session Code"
+        formControlName="code"
+      />
+    </div>
+    <button type="submit" [disabled]="!loginForm.valid">Ingresar</button>
+  </form>
+</div>
